@@ -1,0 +1,35 @@
+{
+    "name": "bnf-grammar",
+    "displayName": "BNF Grammar",
+    "description": "BNF (Backus-Naur Form) language syntax highlighting",
+    "version": "0.1.0",
+    "engines": {
+      "vscode": "^1.70.0"
+    },
+    "categories": [
+      "Programming Languages"
+    ],
+    "contributes": {
+      "languages": [
+        {
+          "id": "bnf",
+          "aliases": [
+            "BNF",
+            "Backus-Naur Form"
+          ],
+          "extensions": [
+            ".bnf",
+            ".grammar"
+          ],
+          "configuration": "./language-configuration.json"
+        }
+      ],
+      "grammars": [
+        {
+          "language": "bnf",
+          "scopeName": "source.bnf",
+          "path": "./syntaxes/bnf.tmLanguage.json"
+        }
+      ]
+    }
+  }

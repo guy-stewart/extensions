@@ -1,0 +1,1010 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "In8",
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#predicate-decl"
+    },
+    {
+      "include": "#automaton-def"
+    },
+    {
+      "include": "#machine-def"
+    },
+    {
+      "include": "#view-def"
+    },
+    {
+      "include": "#rig-def"
+    },
+    {
+      "include": "#pipeline-query"
+    },
+    {
+      "include": "#statements"
+    },
+    {
+      "include": "#predicates"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#constants"
+    },
+    {
+      "include": "#numbers"
+    },
+    {
+      "include": "#operators"
+    },
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#variables"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.in8",
+          "match": "//.*$"
+        },
+        {
+          "name": "comment.block.in8",
+          "begin": "/\\*",
+          "end": "\\*/"
+        }
+      ]
+    },
+    "predicate-decl": {
+      "match": "\\b(predicate)\\s+([a-zA-Z][a-zA-Z0-9_]*)\\s*\\(([^)]*)\\)\\s*;",
+      "captures": {
+        "1": {
+          "name": "keyword.other.predicate.in8"
+        },
+        "2": {
+          "name": "entity.name.function.predicate.in8"
+        },
+        "3": {
+          "name": "variable.parameter.in8"
+        }
+      }
+    },
+    "automaton-def": {
+      "name": "meta.automaton.in8",
+      "begin": "\\b(automaton)\\s+([a-zA-Z][a-zA-Z0-9_]*)\\s*\\(([^)]*)\\)\\s*\\{",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.other.automaton.in8"
+        },
+        "2": {
+          "name": "entity.name.function.automaton.in8"
+        },
+        "3": {
+          "name": "variable.parameter.in8"
+        }
+      },
+      "end": "\\}",
+      "patterns": [
+        {
+          "include": "#comments"
+        },
+        {
+          "match": "\\b(start)\\s*:\\s*([a-zA-Z][a-zA-Z0-9_]*)\\s*;",
+          "captures": {
+            "1": {
+              "name": "keyword.control.start.in8"
+            },
+            "2": {
+              "name": "entity.name.state.in8"
+            }
+          }
+        },
+        {
+          "match": "\\b(description)\\s*:\\s*",
+          "captures": {
+            "1": {
+              "name": "keyword.other.description.in8"
+            }
+          }
+        },
+        {
+          "include": "#state-def"
+        },
+        {
+          "include": "#strings"
+        }
+      ]
+    },
+    "state-def": {
+      "name": "meta.state.in8",
+      "begin": "\\b(state)\\s+([a-zA-Z][a-zA-Z0-9_]*)\\s*\\{",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.other.state.in8"
+        },
+        "2": {
+          "name": "entity.name.state.in8"
+        }
+      },
+      "end": "\\}",
+      "patterns": [
+        {
+          "include": "#comments"
+        },
+        {
+          "name": "meta.entry-action.in8",
+          "begin": "\\b(entry)\\s*\\{",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.control.entry.in8"
+            }
+          },
+          "end": "\\}",
+          "patterns": [
+            {
+              "include": "#statements"
+            }
+          ]
+        },
+        {
+          "name": "meta.exit-action.in8",
+          "begin": "\\b(exit)\\s*\\{",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.control.exit.in8"
+            }
+          },
+          "end": "\\}",
+          "patterns": [
+            {
+              "include": "#statements"
+            }
+          ]
+        },
+        {
+          "include": "#transition-def"
+        },
+        {
+          "include": "#substates-def"
+        }
+      ]
+    },
+    "transition-def": {
+      "name": "meta.transition.in8",
+      "begin": "\\b(on)\\s+([a-zA-Z][a-zA-Z0-9_]*)\\s*\\(([^)]*)\\)\\s*(to)\\s+(\\^)?([a-zA-Z][a-zA-Z0-9_]*)\\s*\\{",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.control.on.in8"
+        },
+        "2": {
+          "name": "entity.name.function.event.in8"
+        },
+        "3": {
+          "name": "variable.parameter.in8"
+        },
+        "4": {
+          "name": "keyword.control.to.in8"
+        },
+        "5": {
+          "name": "keyword.operator.parent.in8"
+        },
+        "6": {
+          "name": "entity.name.state.in8"
+        }
+      },
+      "end": "\\}",
+      "patterns": [
+        {
+          "include": "#comments"
+        },
+        {
+          "name": "meta.guard.in8",
+          "begin": "\\b(guard)\\s*\\{",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.control.guard.in8"
+            }
+          },
+          "end": "\\}",
+          "patterns": [
+            {
+              "include": "#statements"
+            }
+          ]
+        },
+        {
+          "name": "meta.action.in8",
+          "begin": "\\b(action)\\s*\\{",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.control.action.in8"
+            }
+          },
+          "end": "\\}",
+          "patterns": [
+            {
+              "include": "#statements"
+            }
+          ]
+        }
+      ]
+    },
+    "substates-def": {
+      "name": "meta.substates.in8",
+      "begin": "\\b(substates)\\s*\\{",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.control.substates.in8"
+        }
+      },
+      "end": "\\}",
+      "patterns": [
+        {
+          "include": "#comments"
+        },
+        {
+          "match": "\\b(start)\\s*:\\s*([a-zA-Z][a-zA-Z0-9_]*)\\s*;",
+          "captures": {
+            "1": {
+              "name": "keyword.control.start.in8"
+            },
+            "2": {
+              "name": "entity.name.state.in8"
+            }
+          }
+        },
+        {
+          "include": "#state-def"
+        }
+      ]
+    },
+    "machine-def": {
+      "name": "meta.machine.in8",
+      "begin": "\\b(machine)\\s+([a-zA-Z][a-zA-Z0-9_]*)\\s+(using)\\s+([a-zA-Z][a-zA-Z0-9_]*)\\s*\\(([^)]*)\\)\\s*\\{",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.other.machine.in8"
+        },
+        "2": {
+          "name": "entity.name.machine.in8"
+        },
+        "3": {
+          "name": "keyword.other.using.in8"
+        },
+        "4": {
+          "name": "entity.name.function.automaton.in8"
+        },
+        "5": {
+          "name": "variable.parameter.in8"
+        }
+      },
+      "end": "\\}",
+      "patterns": [
+        {
+          "include": "#comments"
+        },
+        {
+          "match": "\\b(view)\\s*:\\s*([a-zA-Z][a-zA-Z0-9_]*)\\s*;",
+          "captures": {
+            "1": {
+              "name": "keyword.other.view.in8"
+            },
+            "2": {
+              "name": "entity.name.view.in8"
+            }
+          }
+        },
+        {
+          "match": "\\b(bounds)\\s*:\\s*\\(\\s*([^,]+)\\s*,\\s*([^,]+)\\s*,\\s*([^,]+)\\s*,\\s*([^)]+)\\s*\\)\\s*;",
+          "captures": {
+            "1": {
+              "name": "keyword.other.bounds.in8"
+            },
+            "2": {
+              "name": "constant.numeric.in8"
+            },
+            "3": {
+              "name": "constant.numeric.in8"
+            },
+            "4": {
+              "name": "constant.numeric.in8"
+            },
+            "5": {
+              "name": "constant.numeric.in8"
+            }
+          }
+        },
+        {
+          "match": "\\b(visible)\\s*:\\s*(true|false)\\s*;",
+          "captures": {
+            "1": {
+              "name": "keyword.other.visible.in8"
+            },
+            "2": {
+              "name": "constant.language.boolean.in8"
+            }
+          }
+        },
+        {
+          "match": "\\b(z)\\s*:\\s*([0-9]+)\\s*;",
+          "captures": {
+            "1": {
+              "name": "keyword.other.z.in8"
+            },
+            "2": {
+              "name": "constant.numeric.in8"
+            }
+          }
+        },
+        {
+          "match": "\\b([a-zA-Z][a-zA-Z0-9_]*)\\s*:",
+          "captures": {
+            "1": {
+              "name": "keyword.other.property.in8"
+            }
+          }
+        },
+        {
+          "include": "#expressions"
+        }
+      ]
+    },
+    "view-def": {
+      "name": "meta.view.in8",
+      "begin": "\\b(view)\\s+([a-zA-Z][a-zA-Z0-9_]*)\\s*\\{",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.other.view.in8"
+        },
+        "2": {
+          "name": "entity.name.view.in8"
+        }
+      },
+      "end": "\\}",
+      "patterns": [
+        {
+          "include": "#comments"
+        },
+        {
+          "match": "\\b(z)\\s*:\\s*([0-9]+)\\s*;",
+          "captures": {
+            "1": {
+              "name": "keyword.other.z.in8"
+            },
+            "2": {
+              "name": "constant.numeric.in8"
+            }
+          }
+        },
+        {
+          "match": "\\b(background_audio)\\s*:\\s*([a-zA-Z][a-zA-Z0-9_]*)\\s*;",
+          "captures": {
+            "1": {
+              "name": "keyword.other.background-audio.in8"
+            },
+            "2": {
+              "name": "entity.name.audio.in8"
+            }
+          }
+        },
+        {
+          "match": "\\b(locator)\\s*:\\s*(true|false)\\s*;",
+          "captures": {
+            "1": {
+              "name": "keyword.other.locator.in8"
+            },
+            "2": {
+              "name": "constant.language.boolean.in8"
+            }
+          }
+        },
+        {
+          "match": "\\b(behavior)\\s*:\\s*([a-zA-Z][a-zA-Z0-9_]*)\\s*;",
+          "captures": {
+            "1": {
+              "name": "keyword.other.behavior.in8"
+            },
+            "2": {
+              "name": "entity.name.behavior.in8"
+            }
+          }
+        },
+        {
+          "match": "\\b(portal|surface)\\s*:",
+          "captures": {
+            "1": {
+              "name": "keyword.other.file.in8"
+            }
+          }
+        },
+        {
+          "match": "\\b([a-zA-Z][a-zA-Z0-9_]*)\\s*:",
+          "captures": {
+            "1": {
+              "name": "keyword.other.property.in8"
+            }
+          }
+        },
+        {
+          "include": "#strings"
+        },
+        {
+          "include": "#expressions"
+        }
+      ]
+    },
+    "rig-def": {
+      "name": "meta.rig.in8",
+      "begin": "\\b(rig)\\s+([a-zA-Z][a-zA-Z0-9_]*)\\s*\\{",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.other.rig.in8"
+        },
+        "2": {
+          "name": "entity.name.rig.in8"
+        }
+      },
+      "end": "\\}",
+      "patterns": [
+        {
+          "include": "#comments"
+        },
+        {
+          "match": "\\b(description)\\s*:",
+          "captures": {
+            "1": {
+              "name": "keyword.other.description.in8"
+            }
+          }
+        },
+        {
+          "match": "\\b(machines)\\s*:\\s*\\[",
+          "captures": {
+            "1": {
+              "name": "keyword.other.machines.in8"
+            }
+          }
+        },
+        {
+          "include": "#signals-def"
+        },
+        {
+          "include": "#queries-def"
+        },
+        {
+          "include": "#shared-data-def"
+        },
+        {
+          "include": "#distribution-def"
+        },
+        {
+          "include": "#strings"
+        },
+        {
+          "include": "#expressions"
+        }
+      ]
+    },
+    "signals-def": {
+      "name": "meta.signals.in8",
+      "begin": "\\b(signals)\\s*\\{",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.other.signals.in8"
+        }
+      },
+      "end": "\\}",
+      "patterns": [
+        {
+          "include": "#comments"
+        },
+        {
+          "match": "([a-zA-Z][a-zA-Z0-9_]*)\\s*(->)\\s*\\[",
+          "captures": {
+            "1": {
+              "name": "entity.name.machine.in8"
+            },
+            "2": {
+              "name": "keyword.operator.connection.in8"
+            }
+          }
+        },
+        {
+          "match": "\\b(signals)\\s*:",
+          "captures": {
+            "1": {
+              "name": "keyword.other.signals-list.in8"
+            }
+          }
+        },
+        {
+          "include": "#strings"
+        },
+        {
+          "include": "#expressions"
+        }
+      ]
+    },
+    "queries-def": {
+      "name": "meta.queries.in8",
+      "begin": "\\b(queries)\\s*\\{",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.other.queries.in8"
+        }
+      },
+      "end": "\\}",
+      "patterns": [
+        {
+          "include": "#comments"
+        },
+        {
+          "match": "([a-zA-Z][a-zA-Z0-9_]*)\\s*(->)\\s*\\[",
+          "captures": {
+            "1": {
+              "name": "entity.name.machine.in8"
+            },
+            "2": {
+              "name": "keyword.operator.connection.in8"
+            }
+          }
+        },
+        {
+          "match": "\\b(properties)\\s*:",
+          "captures": {
+            "1": {
+              "name": "keyword.other.properties-list.in8"
+            }
+          }
+        },
+        {
+          "include": "#strings"
+        },
+        {
+          "include": "#expressions"
+        }
+      ]
+    },
+    "shared-data-def": {
+      "name": "meta.shared-data.in8",
+      "begin": "\\b(shared_data)\\s*:\\s*\\{",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.other.shared-data.in8"
+        }
+      },
+      "end": "\\}\\s*;",
+      "patterns": [
+        {
+          "include": "#comments"
+        },
+        {
+          "include": "#strings"
+        },
+        {
+          "include": "#expressions"
+        }
+      ]
+    },
+    "distribution-def": {
+      "name": "meta.distribution.in8",
+      "begin": "\\b(distribution)\\s*:\\s*\\{",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.other.distribution.in8"
+        }
+      },
+      "end": "\\}\\s*;",
+      "patterns": [
+        {
+          "include": "#comments"
+        },
+        {
+          "match": "\\b(replicated|local_only)\\s*:",
+          "captures": {
+            "1": {
+              "name": "keyword.other.distribution-type.in8"
+            }
+          }
+        },
+        {
+          "include": "#expressions"
+        }
+      ]
+    },
+    "pipeline-query": {
+      "name": "meta.pipeline.in8",
+      "begin": "([a-zA-Z][a-zA-Z0-9_]*)\\s*(=)\\s*([a-zA-Z][a-zA-Z0-9_]*)\\s*\\((?=[?\\w])",
+      "beginCaptures": {
+        "1": {
+          "name": "variable.other.in8"
+        },
+        "2": {
+          "name": "keyword.operator.assignment.in8"
+        },
+        "3": {
+          "name": "entity.name.function.relation.in8"
+        }
+      },
+      "end": ";",
+      "patterns": [
+        {
+          "include": "#pipeline-operations"
+        },
+        {
+          "include": "#query-parameters"
+        },
+        {
+          "include": "#expressions"
+        }
+      ]
+    },
+    "pipeline-operations": {
+      "patterns": [
+        {
+          "match": "\\.\\s*(join|select|filter|orderBy|limit|groupBy|aggregate)\\s*\\(",
+          "captures": {
+            "1": {
+              "name": "entity.name.function.pipeline.in8"
+            }
+          }
+        }
+      ]
+    },
+    "query-parameters": {
+      "patterns": [
+        {
+          "name": "variable.parameter.query.in8",
+          "match": "\\?[a-zA-Z][a-zA-Z0-9_]*"
+        }
+      ]
+    },
+    "statements": {
+      "patterns": [
+        {
+          "include": "#comments"
+        },
+        {
+          "include": "#if-stmt"
+        },
+        {
+          "include": "#while-stmt"
+        },
+        {
+          "include": "#for-stmt"
+        },
+        {
+          "include": "#block-stmt"
+        },
+        {
+          "include": "#assign-stmt"
+        },
+        {
+          "include": "#call-stmt"
+        },
+        {
+          "include": "#expressions"
+        }
+      ]
+    },
+    "if-stmt": {
+      "name": "meta.if.in8",
+      "begin": "\\b(if)\\s*\\(",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.control.if.in8"
+        }
+      },
+      "end": "(?<=\\})|(?=;)",
+      "patterns": [
+        {
+          "include": "#expressions"
+        },
+        {
+          "match": "\\b(else)\\b",
+          "name": "keyword.control.else.in8"
+        },
+        {
+          "include": "#statements"
+        }
+      ]
+    },
+    "while-stmt": {
+      "name": "meta.while.in8",
+      "begin": "\\b(while)\\s*\\(",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.control.while.in8"
+        }
+      },
+      "end": "(?<=\\})|(?=;)",
+      "patterns": [
+        {
+          "include": "#expressions"
+        },
+        {
+          "include": "#statements"
+        }
+      ]
+    },
+    "for-stmt": {
+      "name": "meta.for.in8",
+      "begin": "\\b(for)\\s*\\(",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.control.for.in8"
+        }
+      },
+      "end": "(?<=\\})|(?=;)",
+      "patterns": [
+        {
+          "include": "#expressions"
+        },
+        {
+          "include": "#statements"
+        }
+      ]
+    },
+    "block-stmt": {
+      "name": "meta.block.in8",
+      "begin": "\\{",
+      "end": "\\}",
+      "patterns": [
+        {
+          "include": "#statements"
+        }
+      ]
+    },
+    "assign-stmt": {
+      "match": "([a-zA-Z][a-zA-Z0-9_]*)(?:\\s*\\[([^\\]]*)\\])?\\s*(=)\\s*(.+?);",
+      "captures": {
+        "1": {
+          "name": "variable.other.in8"
+        },
+        "2": {
+          "patterns": [
+            {
+              "include": "#expressions"
+            }
+          ]
+        },
+        "3": {
+          "name": "keyword.operator.assignment.in8"
+        },
+        "4": {
+          "patterns": [
+            {
+              "include": "#expressions"
+            }
+          ]
+        }
+      }
+    },
+    "call-stmt": {
+      "match": "([a-zA-Z][a-zA-Z0-9_]*)\\s*\\((.*)\\)\\s*;",
+      "captures": {
+        "1": {
+          "name": "entity.name.function.in8"
+        },
+        "2": {
+          "patterns": [
+            {
+              "include": "#expressions"
+            }
+          ]
+        }
+      }
+    },
+    "predicates": {
+      "patterns": [
+        {
+          "name": "meta.fact.in8",
+          "match": "([a-zA-Z][a-zA-Z0-9_]*)\\s*\\((.*)\\)\\s*\\.",
+          "captures": {
+            "1": {
+              "name": "entity.name.function.predicate.in8"
+            },
+            "2": {
+              "patterns": [
+                {
+                  "include": "#expressions"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "meta.query.in8",
+          "match": "([a-zA-Z][a-zA-Z0-9_]*)\\s*\\((.*)\\)\\s*\\?",
+          "captures": {
+            "1": {
+              "name": "entity.name.function.predicate.in8"
+            },
+            "2": {
+              "patterns": [
+                {
+                  "include": "#expressions"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "meta.retract.in8",
+          "match": "([a-zA-Z][a-zA-Z0-9_]*)\\s*\\((.*)\\)\\s*~",
+          "captures": {
+            "1": {
+              "name": "entity.name.function.predicate.in8"
+            },
+            "2": {
+              "patterns": [
+                {
+                  "include": "#expressions"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "meta.rule.in8",
+          "match": "([a-zA-Z][a-zA-Z0-9_]*)\\s*\\((.*)\\)\\s*:-\\s*(.+)\\.",
+          "captures": {
+            "1": {
+              "name": "entity.name.function.predicate.in8"
+            },
+            "2": {
+              "patterns": [
+                {
+                  "include": "#expressions"
+                }
+              ]
+            },
+            "3": {
+              "patterns": [
+                {
+                  "include": "#expressions"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "expressions": {
+      "patterns": [
+        {
+          "include": "#strings"
+        },
+        {
+          "include": "#numbers"
+        },
+        {
+          "include": "#constants"
+        },
+        {
+          "include": "#operators"
+        },
+        {
+          "include": "#keywords"
+        },
+        {
+          "include": "#variables"
+        },
+        {
+          "include": "#function-calls"
+        }
+      ]
+    },
+    "strings": {
+      "name": "string.quoted.double.in8",
+      "begin": "\"",
+      "end": "\"",
+      "patterns": [
+        {
+          "name": "constant.character.escape.in8",
+          "match": "\\\\."
+        }
+      ]
+    },
+    "constants": {
+      "patterns": [
+        {
+          "name": "constant.language.boolean.in8",
+          "match": "\\b(true|false)\\b"
+        },
+        {
+          "name": "constant.language.null.in8",
+          "match": "\\b(null)\\b"
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.float.in8",
+          "match": "\\b([0-9]+\\.[0-9]+)\\b"
+        },
+        {
+          "name": "constant.numeric.integer.in8",
+          "match": "\\b([0-9]+)\\b"
+        }
+      ]
+    },
+    "operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.arithmetic.in8",
+          "match": "[+\\-*/%]"
+        },
+        {
+          "name": "keyword.operator.comparison.in8",
+          "match": "==|!=|<=|>=|<|>"
+        },
+        {
+          "name": "keyword.operator.logical.in8",
+          "match": "&&|\\|\\||!"
+        },
+        {
+          "name": "keyword.operator.bitwise.in8",
+          "match": "&|\\||\\^|~|<<|>>"
+        },
+        {
+          "name": "keyword.operator.assignment.in8",
+          "match": "="
+        },
+        {
+          "name": "keyword.operator.pipeline.in8",
+          "match": "\\."
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.in8",
+          "match": "\\b(if|else|while|for|return)\\b"
+        },
+        {
+          "name": "keyword.other.in8",
+          "match": "\\b(predicate|automaton|machine|view|rig|state|on|to|entry|exit|guard|action|substates|using|bounds|visible|z|background_audio|locator|behavior|portal|surface|signals|queries|shared_data|distribution|replicated|local_only|description)\\b"
+        },
+        {
+          "name": "keyword.other.pipeline.in8",
+          "match": "\\b(join|select|filter|orderBy|limit|groupBy|aggregate|asc|desc|count|sum|avg|min|max|array_agg|string_agg)\\b"
+        }
+      ]
+    },
+    "variables": {
+      "patterns": [
+        {
+          "name": "variable.other.in8",
+          "match": "\\b[a-zA-Z][a-zA-Z0-9_]*\\b"
+        },
+        {
+          "name": "variable.parameter.unbound.in8",
+          "match": "\\?[a-zA-Z][a-zA-Z0-9_]*"
+        },
+        {
+          "name": "variable.language.anonymous.in8",
+          "match": "_"
+        }
+      ]
+    },
+    "function-calls": {
+      "match": "([a-zA-Z][a-zA-Z0-9_]*)\\s*\\(",
+      "captures": {
+        "1": {
+          "name": "entity.name.function.in8"
+        }
+      }
+    }
+  },
+  "scopeName": "source.in8"
+}

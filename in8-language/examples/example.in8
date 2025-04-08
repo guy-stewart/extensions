@@ -1,0 +1,64 @@
+// Example In8 program
+/* This is a multi-line comment
+   demonstrating the In8 language features */
+
+write('for examples see');
+
+// Predicate declaration
+predicate parent(person, person);
+predicate sibling(person, person);
+predicate ancestor(person, person);
+
+// Facts about family relationships
+parent("John", "Mary").
+parent("John", "Bob").
+parent("Alice", "Mary").
+parent("Alice", "Bob").
+parent("Mary", "Sam").
+parent("Mary", "Emma").
+parent("Bob", "Tom").
+
+// Rule declarations
+sibling(X, Y) :- parent(Z, X), parent(Z, Y), X != Y.
+
+ancestor(X, Y) :- parent(X, Y).
+ancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).
+
+// Standard programming constructs
+{
+  // Procedural code
+  if (parent("John", "Mary")) {
+    // Query examples
+    sibling("Mary", "Bob")?
+    ancestor("John", "Sam")?
+  } else {
+    // Retracting a fact
+    parent("Alice", "Bob")~
+  }
+
+  // Loop over results
+  for (parent("Mary", ?Child)) {
+    if (sibling(Child, "Tom")) {
+      // Assignment with expression
+      count = count + 1;
+    }
+  }
+
+  // While loop with comparison operators
+  while (count <= 5) {
+    // Arithmetic and assignment
+    value = count * 2 + 3;
+    count = count + 1;
+  }
+}
+
+// Using numbers
+intval = 42;
+floatval = 3.14159;
+
+// Character and string constants
+name = "In8 Language";
+initiator = 'P';
+
+// Using placeholders in queries
+parent(_, "Mary")?  // Any parent of Mary

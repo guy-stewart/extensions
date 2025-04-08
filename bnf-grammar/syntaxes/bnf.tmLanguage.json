@@ -1,0 +1,66 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "BNF",
+    "patterns": [
+      {
+        "include": "#comments"
+      },
+      {
+        "include": "#rule"
+      }
+    ],
+    "repository": {
+      "comments": {
+        "patterns": [
+          {
+            "name": "comment.line.semicolon.bnf",
+            "match": ";.*$"
+          },
+          {
+            "name": "comment.block.bnf",
+            "begin": "/\\*",
+            "end": "\\*/"
+          }
+        ]
+      },
+      "rule": {
+        "patterns": [
+          {
+            "match": "(<[^>]+>)\\s*::=",
+            "captures": {
+              "1": {
+                "name": "entity.name.function.bnf"
+              }
+            }
+          },
+          {
+            "match": "::=",
+            "name": "keyword.operator.assignment.bnf"
+          },
+          {
+            "match": "\\|",
+            "name": "keyword.operator.choice.bnf"
+          },
+          {
+            "match": "<[^>]+>",
+            "name": "variable.other.bnf"
+          },
+          {
+            "match": "\\[|\\]|\\{|\\}|\\(|\\)|\\.\\.\\.",
+            "name": "keyword.operator.bnf"
+          },
+          {
+            "begin": "\"",
+            "end": "\"",
+            "name": "string.quoted.double.bnf"
+          },
+          {
+            "begin": "'",
+            "end": "'",
+            "name": "string.quoted.single.bnf"
+          }
+        ]
+      }
+    },
+    "scopeName": "source.bnf"
+  }

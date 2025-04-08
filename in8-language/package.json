@@ -1,0 +1,40 @@
+{
+  "name": "in8-language",
+  "displayName": "In8 Language",
+  "description": "Syntax highlighting for In8 Language",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "in8",
+        "aliases": ["In8", "in8"],
+        "extensions": [".in8"],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./icons/in8-file-light.svg",
+          "dark": "./icons/in8-file-dark.svg"
+        }
+      }
+    ],
+    "grammars": [
+      {
+        "language": "in8",
+        "scopeName": "source.in8",
+        "path": "./syntaxes/in8.tmLanguage.json"
+      }
+    ],
+    "iconThemes": [
+      {
+        "id": "in8-icons",
+        "label": "In8 Icons",
+        "path": "./fileicons/in8-icon-theme.json"
+      }
+    ]
+  }
+}

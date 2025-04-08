@@ -1,0 +1,26 @@
+; Sample BNF Grammar for JSON
+; This is a simple BNF grammar for JSON
+
+<json> ::= <object> | <array>
+
+<object> ::= "{" <members> "}" | "{" "}"
+<members> ::= <pair> | <pair> "," <members>
+<pair> ::= <string> ":" <value>
+
+<array> ::= "[" <elements> "]" | "[" "]"
+<elements> ::= <value> | <value> "," <elements>
+
+<value> ::= <string> | <number> | <object> | <array> | "true" | "false" | "null"
+
+<string> ::= '"' <characters> '"' | '""'
+<characters> ::= <character> | <character> <characters>
+<character> ::= /* any character except " and \ */ | "\" <escape>
+<escape> ::= '"' | '\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' <hex> <hex> <hex> <hex>
+<hex> ::= <digit> | 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f'
+
+<number> ::= <integer> | <integer> "." <digits> | <integer> <exponent> | <integer> "." <digits> <exponent>
+<integer> ::= <digit> | <onenine> <digits> | "-" <digit> | "-" <onenine> <digits>
+<digits> ::= <digit> | <digit> <digits>
+<digit> ::= "0" | <onenine>
+<onenine> ::= "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+<exponent> ::= ("E" | "e") ("+" | "-" | "") <digits>

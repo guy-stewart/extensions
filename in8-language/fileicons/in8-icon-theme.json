@@ -1,0 +1,25 @@
+{
+    "iconDefinitions": {
+      "_in8_file": {
+        "iconPath": "../icons/in8-file-dark.svg"
+      },
+      "_in8_file_light": {
+        "iconPath": "../icons/in8-file-light.svg"
+      }
+    },
+    "file": "_file",
+    "folder": "_folder",
+    "fileExtensions": {
+      "in8": "_in8_file"
+    },
+    "light": {
+      "fileExtensions": {
+        "in8": "_in8_file_light"
+      }
+    },
+    "highContrast": {
+      "fileExtensions": {
+        "in8": "_in8_file"
+      }
+    }
+  }
