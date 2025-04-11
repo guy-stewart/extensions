@@ -1,0 +1,15 @@
+# Ignore everything
+*
+!.gitignore
+
+# But not these folders
+!bnf-grammar/
+!bnf-grammar/**
+!in8-language/
+!in8-language/**
+# Add more folders as needed...
+
+# You can still ignore specific files within kept folders if needed
+# folder1/some_specific_file_to_ignore.txt`
+in8-language/.DS_Store
+.DS_Store

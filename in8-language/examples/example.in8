@@ -1,16 +1,26 @@
-// Example In8 program
+
+views();
+// delete from machines where view_name like 'IDV_SLIDE%';
+
+x('33').
+
+// Comment In8 program
 /* This is a multi-line comment
    demonstrating the In8 language features */
 
-write('for examples see');
+x = ";";
+x = "  before ; after";
+
+write('for examples see','https://clicktales.io');
 
 // Predicate declaration
-predicate parent(person, person);
+predicate parent{person, person};
 predicate sibling(person, person);
 predicate ancestor(person, person);
 
+
 // Facts about family relationships
-parent("John", "Mary").
+parent.insert("John", "Mary");
 parent("John", "Bob").
 parent("Alice", "Mary").
 parent("Alice", "Bob").
@@ -23,6 +33,9 @@ sibling(X, Y) :- parent(Z, X), parent(Z, Y), X != Y.
 
 ancestor(X, Y) :- parent(X, Y).
 ancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).
+
+student_courses(?id, ?name, ?title, ?address) :-
+     course(?course_id, ?title).
 
 // Standard programming constructs
 {
