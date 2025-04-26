@@ -124,7 +124,7 @@
         },
         {
           "name": "keyword.other.pipeline.in8",
-          "match": "\\b(join|select|delete|update|filter|orderBy|limit|groupBy|aggregate|asc|desc|count|sum|avg|min|max|array_agg|string_agg)\\b"
+          "match": "\\b(join|select|delete|update|filter|order_by|drop|exists|count|limit|groupBy|aggregate|asc|desc|count|sum|avg|min|max|array_agg|string_agg)\\b"
         }
       ]
     },
@@ -152,6 +152,28 @@
         }
       },
       "end": "\\)",
+      "patterns": [
+        { "include": "#expressions" }
+      ]
+    },
+    "pipeline-operation": {
+      "name": "meta.pipeline.in8",
+      "begin": "\\b([a-zA-Z][a-zA-Z0-9_]*)\\s*(\\.)\\s*([a-zA-Z][a-zA-Z0-9_]*)\\s*\\(",
+      "beginCaptures": {
+        "1": { "name": "variable.other.in8" },
+        "2": { "name": "keyword.operator.pipeline.in8" },
+        "3": { "patterns": [
+          {
+            "match": "\\b(join|insert|select|delete|drop|count|exists|update|filter|order_by|limit|group_by|aggregate|asc|desc|count|sum|avg|min|max|array_agg|string_agg)\\b",
+            "name": "keyword.other.pipeline.in8"
+          },
+          {
+            "match": "\\b[a-zA-Z][a-zA-Z0-9_]*\\b",
+            "name": "entity.name.function.in8"
+          }
+        ]}
+      },
+      "end": "\\)\\s*;",
       "patterns": [
         { "include": "#expressions" }
       ]
@@ -534,6 +556,7 @@
         { "include": "#while-stmt" },
         { "include": "#for-stmt" },
         { "include": "#block-stmt" },
+        { "include": "#pipeline-operation" },
         { "include": "#assign-stmt" },
         { "include": "#call-stmt" },
         { "include": "#expressions" }
