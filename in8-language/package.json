@@ -2,7 +2,7 @@
   "name": "in8-language",
   "displayName": "In8 Language",
   "description": "Syntax highlighting for In8 Language",
-  "version": "0.0.1",
+  "version": "0.1.43",
   "engines": {
     "vscode": "^1.60.0"
   },
