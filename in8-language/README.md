@@ -5,9 +5,7 @@ This extension provides syntax highlighting for the In8 programming language in 
 ## Features
 
 - Syntax highlighting for In8 language constructs
-- Support for In8's Prolog-like features (predicates, facts, queries, rules)
 - Recognition of special In8 operators and syntax
-- Custom file icons for In8 files
 
 ## Installation
 
@@ -17,18 +15,42 @@ This extension provides syntax highlighting for the In8 programming language in 
    - Windows: `%USERPROFILE%\.vscode\extensions`
    - macOS/Linux: `~/.vscode/extensions`
 
-2. Copy all the extension files into this directory.
+2. Copy all the extension files from in8-language into this directory.
 
+3. Add a section for in8-language to the extensions.json file found in the extensions folder, Replace YOUR USER NAME with your own user name:
+``` json
+    {
+        "identifier": {
+            "id": "ioMetics.in8",
+            "uuid": "198a705e-28bf-4e84-8610-6e2f628dd12d"
+        },
+        "version": "1.41.0",
+        "location": {
+            "$mid": 1,
+            "path": "/Users/<YOUR USER NAME>/.vscode/extensions/in8-language",
+            "scheme": "file"
+        },
+        "relativeLocation": "in8-language",
+        "metadata": {
+            "isApplicationScoped": false,
+            "isMachineScoped": false,
+            "isBuiltin": false,
+            "installedTimestamp": 1743091246709,
+            "pinned": false,
+            "source": "gallery",
+            "id": "198a705e-28bf-4e84-8610-6e2f628dd12d",
+            "publisherId": "eed56242-9699-4317-8bc7-e9f4b9bdd3ff",
+            "publisherDisplayName": "ioMetics",
+            "targetPlatform": "darwin-arm64",
+            "updated": true,
+            "isPreReleaseVersion": false,
+            "hasPreReleaseVersion": false,
+            "preRelease": false
+        }
+    },
+
+```
 3. Restart VS Code.
-
-### Building from Source
-
-1. Clone this repository
-2. Run `vsce package` to create a `.vsix` file
-3. Install the extension using:
-   ```
-   code --install-extension in8-language-0.0.1.vsix
-   ```
 
 ## Usage
 
@@ -38,18 +60,19 @@ If you need to manually set a file to use In8 highlighting:
 
 1. Open the Command Palette (Ctrl+Shift+P / Cmd+Shift+P)
 2. Type "Change Language Mode" and select it
-3. Select "In8" from the list
+3. Select "in8" from the list
 
 ## Syntax Highlighting
 
 This extension provides highlighting for:
 
-- Keywords (`if`, `else`, `while`, `for`, `predicate`, `functor`)
+- Keywords
 - Operators (logical, comparison, arithmetic, prolog-like)
 - Strings and characters
 - Numbers (integer and float)
 - Comments (line and block)
-- Predicates, facts, queries and rules
+- Predicates
+- Method chaining
 - Variables (bound, unbound with `?` prefix, and placeholders `_`)
 
 ## Customizing Colors

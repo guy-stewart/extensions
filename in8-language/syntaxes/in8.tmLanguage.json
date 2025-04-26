@@ -36,6 +36,10 @@
             {
               "name": "constant.character.escape.in8",
               "match": "\\\\([\"\\\\nrt0])"
+            },
+            {
+              "name": "string.quoted.double.content.in8",
+              "match": "\\.[a-zA-Z][a-zA-Z0-9_]*\\([^()]*\\)(\\.[a-zA-Z][a-zA-Z0-9_]*\\([^()]*\\))*"
             }
           ]
         },
@@ -47,6 +51,10 @@
             {
               "name": "constant.character.escape.in8",
               "match": "\\\\(['\\\\nrt0])"
+            },
+            {
+              "name": "string.quoted.single.content.in8",
+              "match": "\\.[a-zA-Z][a-zA-Z0-9_]*\\([^()]*\\)(\\.[a-zA-Z][a-zA-Z0-9_]*\\([^()]*\\))*"
             }
           ]
         }
@@ -120,7 +128,7 @@
         },
         {
           "name": "keyword.other.in8",
-          "match": "\\b(predicate|automaton|machine|view|rig|state|substates|using|bounds|visible|z|background_audio|locator|behavior|portal|surface|signals|queries|shared_data|distribution|replicated|local_only|description|machines|properties|view)\\b"
+          "match": "\\b(predicate|automaton|machine|view|rig|state|substates|using|bounds|visible|z|background_audio|locator|behavior|portal|surface|signals|queries|shared_data|distribution|replicated|local_only|description|machines|transitions|properties|view)\\b"
         },
         {
           "name": "keyword.other.pipeline.in8",
@@ -158,7 +166,7 @@
     },
     "pipeline-operation": {
       "name": "meta.pipeline.in8",
-      "begin": "\\b([a-zA-Z][a-zA-Z0-9_]*)\\s*(\\.)\\s*([a-zA-Z][a-zA-Z0-9_]*)\\s*\\(",
+      "begin": "(?<!['\"])\\b([a-zA-Z][a-zA-Z0-9_]*)\\s*(\\.)\\s*([a-zA-Z][a-zA-Z0-9_]*)\\s*\\(",
       "beginCaptures": {
         "1": { "name": "variable.other.in8" },
         "2": { "name": "keyword.operator.pipeline.in8" },
@@ -635,14 +643,6 @@
     "predicates": {
       "patterns": [
         {
-          "name": "meta.fact.in8",
-          "match": "([a-zA-Z][a-zA-Z0-9_]*)\\s*\\((.*)\\)\\s*\\.",
-          "captures": {
-            "1": { "name": "entity.name.function.predicate.in8" },
-            "2": { "patterns": [{ "include": "#expressions" }] }
-          }
-        },
-        {
           "name": "meta.query.in8",
           "match": "([a-zA-Z][a-zA-Z0-9_]*)\\s*\\((.*)\\)\\s*\\?",
           "captures": {
@@ -657,32 +657,7 @@
             "1": { "name": "entity.name.function.predicate.in8" },
             "2": { "patterns": [{ "include": "#expressions" }] }
           }
-        },
-        {
-          "name": "meta.rule.in8",
-          "begin": "\\b([a-zA-Z][a-zA-Z0-9_]*)\\s*\\((.*?)\\)\\s*:-\\s*",
-          "beginCaptures": {
-            "1": { "name": "entity.name.function.predicate.in8" },
-            "2": { "patterns": [{ "include": "#expressions" }] }
-          },
-          "end": "\\.",
-          "patterns": [
-            { "include": "#expressions" }
-          ]
-        },
-        {
-          "name": "meta.rule.assignment.in8",
-          "begin": "\\b([a-zA-Z][a-zA-Z0-9_]*)\\s*\\((.*?)\\)\\s*:=\\s*",
-          "beginCaptures": {
-            "1": { "name": "entity.name.function.predicate.in8" },
-            "2": { "patterns": [{ "include": "#expressions" }] }
-          },
-          "end": "\\.",
-          "patterns": [
-            { "include": "#expressions" }
-          ]
-        }
-        
+        }        
       ]
     }
   },
