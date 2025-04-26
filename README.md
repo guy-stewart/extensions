@@ -15,7 +15,24 @@ This extension provides syntax highlighting for the In8 programming language in 
    - Windows: `%USERPROFILE%\.vscode\extensions`
    - macOS/Linux: `~/.vscode/extensions`
 
-2. Copy all the extension files from in8-language into this directory.
+2. Copy all the extension files into this directory maintaining the following structure:
+``` mermaid 
+graph TD
+    VSCode[".vscode/"] --> Extensions["extensions/"]
+    Extensions["extensions/"] --> Root["in8-language/"]
+    Root["in8-language/"] --> A["package.json"]
+    Root --> B["language-configuration.json"]
+    Root --> C["README.md"]
+    Root --> D["syntaxes/"]
+    D --> E["in8.tmLanguage.json"]
+    Root --> F["examples/"]
+    F --> G["example.in8"]
+    Root --> H["icons/"]
+    H --> I["in8-file-dark.svg"]
+    H --> J["in8-file-light.svg"]
+    Root --> K["fileicons/"]
+    K --> L["in8-icon-theme.json"]
+```
 
 3. Add a section for in8-language to the extensions.json file found in the extensions folder, Replace YOUR USER NAME with your own user name:
 ``` json
